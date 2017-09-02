@@ -520,6 +520,76 @@ public class lay_CadColaborador extends JInternalFrame {
         SpringLayout leiaute_3 = new SpringLayout();
         painel_3.setLayout(leiaute_3);
 
+        JLabel lbEmpresa = new JLabel("Empresa Contratante");
+        painel_3.add(lbEmpresa);
+        leiaute_3.putConstraint(SpringLayout.WEST,lbEmpresa,10,
+                                SpringLayout.WEST,painel_3);
+        leiaute_3.putConstraint(SpringLayout.NORTH,lbEmpresa,10,
+                                SpringLayout.NORTH,painel_3);
+
+        JComboBox cbempresa = new JComboBox();
+        painel_3.add(cbempresa);
+        leiaute_3.putConstraint(SpringLayout.WEST,cbempresa,0,
+                                SpringLayout.WEST,lbEmpresa);
+        leiaute_3.putConstraint(SpringLayout.NORTH,cbempresa,5,
+                                SpringLayout.SOUTH,lbEmpresa);
+
+        JLabel lbcargo = new JLabel("Função/Cargo");
+        painel_3.add(lbcargo);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,lbcargo,0,
+                                SpringLayout.BASELINE,lbEmpresa);
+        leiaute_3.putConstraint(SpringLayout.WEST,lbcargo,50,
+                                SpringLayout.EAST,lbEmpresa);
+
+        JComboBox cbcargo = new JComboBox();
+        painel_3.add(cbcargo);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,cbcargo,0,
+                                SpringLayout.BASELINE,cbempresa);
+        leiaute_3.putConstraint(SpringLayout.WEST,cbcargo,0,
+                                SpringLayout.WEST,lbcargo);
+
+        JLabel lbdtaadmissao = new JLabel("Data de Admissão");
+        painel_3.add(lbdtaadmissao);
+        leiaute_3.putConstraint(SpringLayout.NORTH,lbdtaadmissao,10,
+                                SpringLayout.SOUTH,cbempresa);
+        leiaute_3.putConstraint(SpringLayout.WEST,lbdtaadmissao,0,
+                                SpringLayout.WEST,cbempresa);
+
+        RDataHora tfdtaadmissao = new RDataHora(10);
+        painel_3.add(tfdtaadmissao);
+        leiaute_3.putConstraint(SpringLayout.NORTH,tfdtaadmissao,5,
+                                SpringLayout.SOUTH,lbdtaadmissao);
+        leiaute_3.putConstraint(SpringLayout.WEST,tfdtaadmissao,0,
+                                SpringLayout.WEST,lbdtaadmissao);
+
+        JLabel lbdtademissao = new JLabel("Data de Demissão");
+        painel_3.add(lbdtademissao);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,lbdtademissao,0,
+                                SpringLayout.BASELINE,lbdtaadmissao);
+        leiaute_3.putConstraint(SpringLayout.WEST,lbdtademissao,50,
+                                SpringLayout.EAST,lbdtaadmissao);
+
+        RDataHora tfdtademissao = new RDataHora(10);
+        painel_3.add(tfdtademissao);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,tfdtademissao,0,
+                                SpringLayout.BASELINE,tfdtaadmissao);
+        leiaute_3.putConstraint(SpringLayout.WEST,tfdtademissao,0,
+                                SpringLayout.WEST,lbdtademissao);
+
+        JLabel lbsalario = new JLabel("Salário");
+        painel_3.add(lbsalario);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,lbsalario,0,
+                                SpringLayout.BASELINE,lbdtademissao);
+        leiaute_3.putConstraint(SpringLayout.WEST,lbsalario,50,
+                                SpringLayout.EAST,lbdtademissao);
+
+        RNumerico tfsalario = new RNumerico(10);
+        painel_3.add(tfsalario);
+        leiaute_3.putConstraint(SpringLayout.BASELINE,tfsalario,0,
+                                SpringLayout.BASELINE,tfdtademissao);
+        leiaute_3.putConstraint(SpringLayout.WEST,tfsalario,0,
+                                SpringLayout.WEST,lbsalario);
+
         return painel_3;
     }
 
