@@ -27,80 +27,80 @@ class lay_cadEpi extends JInternalFrame{
 
         this.setJMenuBar(Constroe_Menu());
 
-        Constroe_Leiaute();
+        Constroe_Leiauteepi();
 
     }
 
-    private void Constroe_Leiaute(){
+    private void Constroe_Leiauteepi(){
 
-        // Configurando o leiaute para o panel do JFrame.
-        Container painel = this.getContentPane();
-        SpringLayout leiaute = new SpringLayout();
-        painel.setLayout(leiaute);
+        // Configurando o leiauteepi para o panel do JFrame.
+        Container painelepi = this.getContentPane();
+        SpringLayout leiauteepi = new SpringLayout();
+        painelepi.setLayout(leiauteepi);
 
         JLabel lbepi = new JLabel("EPI");
-        painel.add(lbepi);
-        leiaute.putConstraint(  SpringLayout.NORTH, lbepi, 10,
-                                SpringLayout.SOUTH, painel);
-        leiaute.putConstraint(  SpringLayout.WEST, lbepi, 10,
-                                SpringLayout.WEST, painel);
+        painelepi.add(lbepi);
+        leiauteepi.putConstraint(   SpringLayout.NORTH, lbepi, 10,
+                                    SpringLayout.NORTH, painelepi);
+        leiauteepi.putConstraint(   SpringLayout.WEST, lbepi, 10,
+                                    SpringLayout.WEST, painelepi);
 
         JComboBox cbepi = new JComboBox();
-        cbepi.setPreferredSize(new Dimension(50, 20));
-        painel.add(cbepi);
-        leiaute.putConstraint(  SpringLayout.NORTH, cbepi, 5,
-                                SpringLayout.SOUTH, lbepi);
-        leiaute.putConstraint(  SpringLayout.WEST, cbepi, 0,
-                                SpringLayout.WEST, painel);
+        cbepi.setPreferredSize(new Dimension(300, 20));
+        painelepi.add(cbepi);
+        leiauteepi.putConstraint(   SpringLayout.NORTH, cbepi, 5,
+                                    SpringLayout.SOUTH, lbepi);
+        leiauteepi.putConstraint(   SpringLayout.WEST, cbepi, 0,
+                                    SpringLayout.WEST, lbepi);
 
         JLabel lbtamanho = new JLabel("Tamanho");
-        painel.add(lbtamanho);
-        leiaute.putConstraint(  SpringLayout.BASELINE, lbtamanho, 0,
-                                SpringLayout.BASELINE, lbepi);
-        leiaute.putConstraint(  SpringLayout.WEST, lbtamanho, 50,
-                                SpringLayout.EAST, lbepi);
+        painelepi.add(lbtamanho);
+        leiauteepi.putConstraint(   SpringLayout.BASELINE, lbtamanho, 0,
+                                    SpringLayout.BASELINE, lbepi);
+        leiauteepi.putConstraint(   SpringLayout.WEST, lbtamanho, 300,
+                                    SpringLayout.EAST, lbepi);
 
         JComboBox cbtamanho = new JComboBox();
-        cbtamanho.setPreferredSize(new Dimension(50, 20));
-        painel.add(cbtamanho);
-        leiaute.putConstraint(  SpringLayout.BASELINE, cbtamanho, 0,
-                                SpringLayout.BASELINE, cbepi);
-        leiaute.putConstraint(  SpringLayout.WEST, cbtamanho, 0,
-                                SpringLayout.WEST, lbtamanho);
+        cbtamanho.setPreferredSize(new Dimension(80, 20));
+        painelepi.add(cbtamanho);
+        leiauteepi.putConstraint(   SpringLayout.BASELINE, cbtamanho, 0,
+                                    SpringLayout.BASELINE, cbepi);
+        leiauteepi.putConstraint(   SpringLayout.WEST, cbtamanho, 0,
+                                    SpringLayout.WEST, lbtamanho);
 
         JLabel lbca = new JLabel("CA");
-        painel.add(lbca);
-        leiaute.putConstraint(  SpringLayout.NORTH, lbca, 10,
-                                SpringLayout.SOUTH, cbepi);
-        leiaute.putConstraint(  SpringLayout.WEST, lbca, 0,
-                                SpringLayout.WEST, cbepi);
+        painelepi.add(lbca);
+        leiauteepi.putConstraint(   SpringLayout.NORTH, lbca, 10,
+                                    SpringLayout.SOUTH, cbepi);
+        leiauteepi.putConstraint(   SpringLayout.WEST, lbca, 0,
+                                    SpringLayout.WEST, cbepi);
 
         RTexto tfca = new RTexto(10);
-        painel.add(tfca);
-        leiaute.putConstraint(  SpringLayout.NORTH, tfca, 5,
-                                SpringLayout.SOUTH, lbca);
-        leiaute.putConstraint(  SpringLayout.WEST, tfca, 0,
-                                SpringLayout.WEST, lbca);
+        painelepi.add(tfca);
+        leiauteepi.putConstraint(   SpringLayout.NORTH, tfca, 5,
+                                    SpringLayout.SOUTH, lbca);
+        leiauteepi.putConstraint(   SpringLayout.WEST, tfca, 0,
+                                    SpringLayout.WEST, lbca);
 
         JLabel lbvalor = new JLabel("Valor");
-        painel.add(lbvalor);
-        leiaute.putConstraint(  SpringLayout.BASELINE, lbvalor, 0,
+        painelepi.add(lbvalor);
+        leiauteepi.putConstraint(  SpringLayout.BASELINE, lbvalor, 0,
                                 SpringLayout.BASELINE, lbca);
-        leiaute.putConstraint(  SpringLayout.WEST, lbvalor, 50,
+        leiauteepi.putConstraint(  SpringLayout.WEST, lbvalor, 110,
                                 SpringLayout.EAST, lbca);
 
         RTextoFormat tfvalor = new RTextoFormat(10);
-        painel.add(tfvalor);
-        leiaute.putConstraint(  SpringLayout.BASELINE, tfvalor, 5,
+        painelepi.add(tfvalor);
+        leiauteepi.putConstraint(  SpringLayout.BASELINE, tfvalor, 0,
                                 SpringLayout.BASELINE, tfca);
-        leiaute.putConstraint(  SpringLayout.WEST, tfvalor, 0,
+        leiauteepi.putConstraint(  SpringLayout.WEST, tfvalor, 0,
                                 SpringLayout.WEST, lbvalor);
 
     }
 
     private void Inicaliza_Atributos(){
 
-        tamanho_tela = new Dimension(650,300);
+        tamanho_tela = new Dimension(450,200);
 
     }
 
