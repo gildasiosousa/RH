@@ -15,6 +15,8 @@ public class lay_Inicial extends JFrame {
     private JDesktopPane desktop;
     private lay_CadColaborador cadColaborador;
     private lay_CadEmpresa cadEmpresa;
+    private lay_cadEpi cadEpi;
+    private lay_cadUniforme cadUniforme;
 
     // Método Construtor
     public lay_Inicial() {
@@ -103,11 +105,41 @@ public class lay_Inicial extends JFrame {
 
         });
 
-        JMenuItem mnCadEpi          = new JMenuItem("EPI");
+        JMenuItem mnCadEpi  = new JMenuItem("EPI");
         mnCadEpi.setFont(fonte_menu_item);
+        mnCadEpi.addActionListener(ActiveEvent -> {
 
-        JMenuItem mnCadUniforme     = new JMenuItem("Uniforme");
+            if(cadEpi == null){
+
+                cadEpi = new lay_cadEpi();
+                this.desktop.add(cadEpi);
+                cadEpi.setVisible(true);
+
+            }else{
+
+                desktop.moveToFront(cadEpi);
+
+            }
+
+        });
+
+        JMenuItem mnCadUniforme = new JMenuItem("Uniforme");
         mnCadUniforme.setFont(fonte_menu_item);
+        mnCadUniforme.addActionListener(ActiveEvent -> {
+
+            if(cadUniforme == null){
+
+                cadUniforme = new lay_cadUniforme();
+                this.desktop.add(cadUniforme);
+                cadUniforme.setVisible(true);
+
+            }else{
+
+                desktop.moveToFront(cadUniforme);
+
+            }
+
+        });
 
         JMenuItem mnLancFerias      = new JMenuItem("Férias");
         mnLancFerias.setFont(fonte_menu_item);
