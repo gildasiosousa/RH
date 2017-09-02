@@ -14,6 +14,7 @@ public class lay_Inicial extends JFrame {
     private Dimension  tamanho_tela;
     private JDesktopPane desktop;
     private lay_CadColaborador cadColaborador;
+    private lay_CadEmpresa cadEmpresa;
 
     // Método Construtor
     public lay_Inicial() {
@@ -70,13 +71,37 @@ public class lay_Inicial extends JFrame {
         JMenuItem mnCadColaborador  = new JMenuItem("Colaborador");
         mnCadColaborador.setFont(fonte_menu_item);
         mnCadColaborador.addActionListener(ActionEvent -> {
-            cadColaborador = new lay_CadColaborador();
-            this.desktop.add(cadColaborador);
-            cadColaborador.setVisible(true);
+
+            if (cadColaborador == null){
+
+                cadColaborador = new lay_CadColaborador();
+                this.desktop.add(cadColaborador);
+                cadColaborador.setVisible(true);
+
+            }else{
+
+                desktop.moveToFront(cadColaborador);
+            }
+
         });
 
         JMenuItem mnCadEmpresa      = new JMenuItem("Empresa");
         mnCadEmpresa.setFont(fonte_menu_item);
+        mnCadEmpresa.addActionListener(ActiveEvent -> {
+
+            if(cadEmpresa == null){
+
+                cadEmpresa = new lay_CadEmpresa();
+                this.desktop.add(cadEmpresa);
+                cadEmpresa.setVisible(true);
+
+            }else{
+
+                desktop.moveToFront(cadEmpresa);
+
+            }
+
+        });
 
         JMenuItem mnCadEpi          = new JMenuItem("EPI");
         mnCadEpi.setFont(fonte_menu_item);

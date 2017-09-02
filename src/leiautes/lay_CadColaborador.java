@@ -34,7 +34,7 @@ class lay_CadColaborador extends JInternalFrame {
         JTabbedPane tabPn = new JTabbedPane();
         tabPn.addTab("Dados Pessoais",Constroe_Leiaute1());
         tabPn.addTab("Dados Familiares",Constroe_Leiaute2());
-        //tabPn.addTab("Dados Contratuais",Constroe_Leiaute3());
+        tabPn.addTab("Dados Contratuais",Constroe_Leiaute3());
 
         this.add(tabPn);
 
@@ -519,6 +519,7 @@ class lay_CadColaborador extends JInternalFrame {
         SpringLayout leiaute_3 = new SpringLayout();
         painel_3.setLayout(leiaute_3);
 
+        // Criação do combobox empresa.
         JLabel lbEmpresa = new JLabel("Empresa Contratante");
         painel_3.add(lbEmpresa);
         leiaute_3.putConstraint(SpringLayout.WEST,lbEmpresa,10,
@@ -527,68 +528,205 @@ class lay_CadColaborador extends JInternalFrame {
                                 SpringLayout.NORTH,painel_3);
 
         JComboBox cbempresa = new JComboBox();
+        cbempresa.setPreferredSize(new Dimension(300, 20));
         painel_3.add(cbempresa);
         leiaute_3.putConstraint(SpringLayout.WEST,cbempresa,0,
                                 SpringLayout.WEST,lbEmpresa);
         leiaute_3.putConstraint(SpringLayout.NORTH,cbempresa,5,
                                 SpringLayout.SOUTH,lbEmpresa);
 
+        //Criação do combobox Cargo.
         JLabel lbcargo = new JLabel("Função/Cargo");
         painel_3.add(lbcargo);
         leiaute_3.putConstraint(SpringLayout.BASELINE,lbcargo,0,
                                 SpringLayout.BASELINE,lbEmpresa);
-        leiaute_3.putConstraint(SpringLayout.WEST,lbcargo,50,
+        leiaute_3.putConstraint(SpringLayout.WEST,lbcargo,160,
                                 SpringLayout.EAST,lbEmpresa);
 
         JComboBox cbcargo = new JComboBox();
+        cbcargo.setPreferredSize(new Dimension(300, 20));
         painel_3.add(cbcargo);
         leiaute_3.putConstraint(SpringLayout.BASELINE,cbcargo,0,
                                 SpringLayout.BASELINE,cbempresa);
         leiaute_3.putConstraint(SpringLayout.WEST,cbcargo,0,
                                 SpringLayout.WEST,lbcargo);
 
-        JLabel lbdtaadmissao = new JLabel("Data de Admissão");
+        // Criação do campo Data de Admissão.
+        JLabel lbdtaadmissao = new JLabel("Data Admissão");
         painel_3.add(lbdtaadmissao);
         leiaute_3.putConstraint(SpringLayout.NORTH,lbdtaadmissao,10,
                                 SpringLayout.SOUTH,cbempresa);
         leiaute_3.putConstraint(SpringLayout.WEST,lbdtaadmissao,0,
                                 SpringLayout.WEST,cbempresa);
 
-        RDataHora tfdtaadmissao = new RDataHora(10);
+        RDataHora tfdtaadmissao = new RDataHora(9);
         painel_3.add(tfdtaadmissao);
         leiaute_3.putConstraint(SpringLayout.NORTH,tfdtaadmissao,5,
                                 SpringLayout.SOUTH,lbdtaadmissao);
         leiaute_3.putConstraint(SpringLayout.WEST,tfdtaadmissao,0,
                                 SpringLayout.WEST,lbdtaadmissao);
 
-        JLabel lbdtademissao = new JLabel("Data de Demissão");
+        // Criação do campo data de Demissão.
+        JLabel lbdtademissao = new JLabel("Data Demissão");
         painel_3.add(lbdtademissao);
         leiaute_3.putConstraint(SpringLayout.BASELINE,lbdtademissao,0,
                                 SpringLayout.BASELINE,lbdtaadmissao);
-        leiaute_3.putConstraint(SpringLayout.WEST,lbdtademissao,50,
+        leiaute_3.putConstraint(SpringLayout.WEST,lbdtademissao,20,
                                 SpringLayout.EAST,lbdtaadmissao);
 
-        RDataHora tfdtademissao = new RDataHora(10);
+        RDataHora tfdtademissao = new RDataHora(9);
         painel_3.add(tfdtademissao);
         leiaute_3.putConstraint(SpringLayout.BASELINE,tfdtademissao,0,
                                 SpringLayout.BASELINE,tfdtaadmissao);
         leiaute_3.putConstraint(SpringLayout.WEST,tfdtademissao,0,
                                 SpringLayout.WEST,lbdtademissao);
 
+        // Criação do campo Salário.
         JLabel lbsalario = new JLabel("Salário");
         painel_3.add(lbsalario);
         leiaute_3.putConstraint(SpringLayout.BASELINE,lbsalario,0,
                                 SpringLayout.BASELINE,lbdtademissao);
-        leiaute_3.putConstraint(SpringLayout.WEST,lbsalario,50,
+        leiaute_3.putConstraint(SpringLayout.WEST,lbsalario,20,
                                 SpringLayout.EAST,lbdtademissao);
 
-        RNumerico tfsalario = new RNumerico(10);
+        RTextoFormat tfsalario = new RTextoFormat(10);
         painel_3.add(tfsalario);
         leiaute_3.putConstraint(SpringLayout.BASELINE,tfsalario,0,
                                 SpringLayout.BASELINE,tfdtademissao);
         leiaute_3.putConstraint(SpringLayout.WEST,tfsalario,0,
                                 SpringLayout.WEST,lbsalario);
 
+        // Criação do separador.
+        JSeparator sepCadColab_3 = new JSeparator(SwingConstants.HORIZONTAL);
+        sepCadColab_3.setPreferredSize(new Dimension(tamanho_tela.width,1));
+        painel_3.add(sepCadColab_3);
+        leiaute_3.putConstraint(SpringLayout.NORTH,sepCadColab_3,10,
+                                SpringLayout.SOUTH,tfdtaadmissao);
+
+        // Criação das opções de benefícios.
+        JLabel lbbeneficios = new JLabel("Benefícios");
+        painel_3.add(lbbeneficios);
+        leiaute_3.putConstraint(SpringLayout.NORTH, lbbeneficios, 10,
+                                SpringLayout.SOUTH, sepCadColab_3);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbbeneficios, 10,
+                                SpringLayout.WEST, painel_3);
+
+        JCheckBox chvaletransp = new JCheckBox("Vale Transporte");
+        painel_3.add(chvaletransp);
+        leiaute_3.putConstraint(SpringLayout.NORTH, chvaletransp, 5,
+                                SpringLayout.SOUTH, lbbeneficios);
+        leiaute_3.putConstraint(SpringLayout.WEST, chvaletransp, 0,
+                                SpringLayout.WEST, lbbeneficios);
+
+        JCheckBox chplanosaude = new JCheckBox("Plano de Saúde");
+        painel_3.add(chplanosaude);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, chplanosaude, 0,
+                                SpringLayout.BASELINE, chvaletransp);
+        leiaute_3.putConstraint(SpringLayout.WEST, chplanosaude, 20,
+                                SpringLayout.EAST, chvaletransp);
+
+        JCheckBox chplanoodonto = new JCheckBox("Plano Odontológico");
+        painel_3.add(chplanoodonto);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, chplanoodonto, 0,
+                                SpringLayout.BASELINE, chplanosaude);
+        leiaute_3.putConstraint(SpringLayout.WEST, chplanoodonto, 20,
+                                SpringLayout.EAST, chplanosaude);
+
+        // Criação do separador.
+        JSeparator sepCadColab_4 = new JSeparator(SwingConstants.HORIZONTAL);
+        sepCadColab_4.setPreferredSize(new Dimension(tamanho_tela.width,1));
+        painel_3.add(sepCadColab_4);
+        leiaute_3.putConstraint(SpringLayout.NORTH,sepCadColab_4,10,
+                                SpringLayout.SOUTH,chvaletransp);
+
+        // Criação da area de dados bancários.
+        JLabel lbdadosbancarios = new JLabel("Dados Bancários");
+        painel_3.add(lbdadosbancarios);
+        leiaute_3.putConstraint(SpringLayout.NORTH, lbdadosbancarios, 10,
+                                SpringLayout.SOUTH, sepCadColab_4);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbdadosbancarios, 10,
+                                SpringLayout.WEST, painel_3);
+
+        JLabel lbbanco = new JLabel("Banco");
+        painel_3.add(lbbanco);
+        leiaute_3.putConstraint(SpringLayout.NORTH, lbbanco, 10,
+                                SpringLayout.SOUTH, lbdadosbancarios);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbbanco, 0,
+                                SpringLayout.WEST, lbdadosbancarios);
+
+        JComboBox cbbanco = new JComboBox();
+        cbbanco.setPreferredSize(new Dimension(200, 20));
+        painel_3.add(cbbanco);
+        leiaute_3.putConstraint(SpringLayout.NORTH,cbbanco,5,
+                                SpringLayout.SOUTH,lbbanco);
+        leiaute_3.putConstraint(SpringLayout.WEST,cbbanco,0,
+                                SpringLayout.WEST,lbbanco);
+
+        JLabel lbagencia = new JLabel("Agência");
+        painel_3.add(lbagencia);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, lbagencia, 0,
+                                SpringLayout.BASELINE, lbbanco);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbagencia, 180,
+                                SpringLayout.EAST, lbbanco);
+
+        RNumerico tfagencia = new RNumerico(10);
+        painel_3.add(tfagencia);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, tfagencia, 0,
+                                SpringLayout.BASELINE, cbbanco);
+        leiaute_3.putConstraint(SpringLayout.WEST, tfagencia, 0,
+                                SpringLayout.WEST, lbagencia);
+
+        JLabel lboperacao = new JLabel("Op.");
+        painel_3.add(lboperacao);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, lboperacao, 0,
+                                SpringLayout.BASELINE, lbagencia);
+        leiaute_3.putConstraint(SpringLayout.WEST, lboperacao, 70,
+                                SpringLayout.EAST, lbagencia);
+
+        RNumerico tfoperacao = new RNumerico(2);
+        painel_3.add(tfoperacao);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, tfoperacao, 0,
+                                SpringLayout.BASELINE, tfagencia);
+        leiaute_3.putConstraint(SpringLayout.WEST, tfoperacao, 0,
+                                SpringLayout.WEST, lboperacao);
+
+        JLabel lbconta = new JLabel("Conta");
+        painel_3.add(lbconta);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, lbconta, 0,
+                                SpringLayout.BASELINE, lboperacao);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbconta, 15,
+                                SpringLayout.EAST, lboperacao);
+
+        RTextoFormat tfconta = new RTextoFormat(10);
+        painel_3.add(tfconta);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, tfconta, 0,
+                                SpringLayout.BASELINE, tfoperacao);
+        leiaute_3.putConstraint(SpringLayout.WEST, tfconta, 0,
+                                SpringLayout.WEST, lbconta);
+
+        JLabel lbvalor = new JLabel("Valor");
+        painel_3.add(lbvalor);
+        leiaute_3.putConstraint(SpringLayout.NORTH, lbvalor, 10,
+                                SpringLayout.SOUTH, cbbanco);
+        leiaute_3.putConstraint(SpringLayout.WEST, lbvalor, 0,
+                                SpringLayout.WEST, cbbanco);
+
+        // Criação do campo de adiantamento.
+        RTextoFormat tfvalor = new RTextoFormat(10);
+        painel_3.add(tfvalor);
+        leiaute_3.putConstraint(SpringLayout.NORTH, tfvalor, 5,
+                                SpringLayout.SOUTH, lbvalor);
+        leiaute_3.putConstraint(SpringLayout.WEST, tfvalor, 0,
+                                SpringLayout.WEST, lbvalor);
+
+        JCheckBox chadiantamento = new JCheckBox("Adiantamento");
+        painel_3.add(chadiantamento);
+        leiaute_3.putConstraint(SpringLayout.BASELINE, chadiantamento, 0,
+                                SpringLayout.BASELINE, tfvalor);
+        leiaute_3.putConstraint(SpringLayout.WEST, chadiantamento, 20,
+                                SpringLayout.EAST, tfvalor);
+
+        // Retorna o panel populado.
         return painel_3;
     }
 
