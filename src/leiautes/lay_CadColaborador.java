@@ -3,18 +3,17 @@ package leiautes;
 import Controle.Componentes.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
-public class lay_CadColaborador extends JInternalFrame {
+class lay_CadColaborador extends JInternalFrame {
 
     private Dimension tamanho_tela;
     private Color     cor_fundo;
     private String[]  nomes_col;
     private Object    dados[][];
 
-    public lay_CadColaborador() {
+    lay_CadColaborador() {
 
         Inicaliza_Atributos();
         Constroe_Form();
@@ -35,7 +34,7 @@ public class lay_CadColaborador extends JInternalFrame {
         JTabbedPane tabPn = new JTabbedPane();
         tabPn.addTab("Dados Pessoais",Constroe_Leiaute1());
         tabPn.addTab("Dados Familiares",Constroe_Leiaute2());
-        tabPn.addTab("Dados Contratuais",Constroe_Leiaute3());
+        //tabPn.addTab("Dados Contratuais",Constroe_Leiaute3());
 
         this.add(tabPn);
 
