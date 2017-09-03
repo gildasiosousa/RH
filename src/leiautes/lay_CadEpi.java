@@ -1,17 +1,24 @@
 package leiautes;
 
-import Controle.Componentes.RTexto;
-import Controle.Componentes.RTextoFormat;
-
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.NumberFormat;
 
-class lay_cadEpi extends JInternalFrame{
+class lay_CadEpi extends JInternalFrame{
 
-    private Dimension tamanho_tela;
+    private Dimension       tamanho_tela;
+    private lay_Consulta    consulta;
+    private lay_Inicial     form_pai;
+    private NumberFormat    format;
+    private NumberFormat    format2;
 
-    lay_cadEpi() {
+    lay_CadEpi(lay_Inicial formpai) {
 
+        form_pai = formpai;
         Inicaliza_Atributos();
         Constroe_Form();
     }
@@ -75,7 +82,7 @@ class lay_cadEpi extends JInternalFrame{
         leiauteepi.putConstraint(   SpringLayout.WEST, lbca, 0,
                                     SpringLayout.WEST, cbepi);
 
-        RTexto tfca = new RTexto(10);
+        JTextField tfca = new JTextField(10);
         painelepi.add(tfca);
         leiauteepi.putConstraint(   SpringLayout.NORTH, tfca, 5,
                                     SpringLayout.SOUTH, lbca);
@@ -89,18 +96,49 @@ class lay_cadEpi extends JInternalFrame{
         leiauteepi.putConstraint(  SpringLayout.WEST, lbvalor, 110,
                                 SpringLayout.EAST, lbca);
 
-        RTextoFormat tfvalor = new RTextoFormat(10);
+        JFormattedTextField tfvalor = new JFormattedTextField(new DefaultFormatterFactory(  new NumberFormatter(format),
+                                                                                            new NumberFormatter(format),
+                                                                                            new NumberFormatter(format2)));
+        tfvalor.setHorizontalAlignment(0);
+        tfvalor.setPreferredSize(new Dimension(150,19));
         painelepi.add(tfvalor);
         leiauteepi.putConstraint(  SpringLayout.BASELINE, tfvalor, 0,
                                 SpringLayout.BASELINE, tfca);
         leiauteepi.putConstraint(  SpringLayout.WEST, tfvalor, 0,
                                 SpringLayout.WEST, lbvalor);
 
+        Trata_Campos(tfca);
+
     }
 
     private void Inicaliza_Atributos(){
 
         tamanho_tela = new Dimension(450,200);
+        format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(2);
+        format2 = NumberFormat.getNumberInstance();
+
+    }
+
+    private void TrataSoNumeros(JTextField campo){
+
+        campo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9') ||
+                        (c == KeyEvent.VK_BACK_SPACE) ||
+                        (c == KeyEvent.VK_DELETE))) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+
+    }
+
+    private void Trata_Campos(JTextField tfca){
+
+        TrataSoNumeros(tfca);
 
     }
 
@@ -109,11 +147,33 @@ class lay_cadEpi extends JInternalFrame{
         JMenuBar mnbar = new JMenuBar();
         JMenu mnnovo = new JMenu("Novo");
         JMenu mnsalvar = new JMenu("Salvar");
+        JMenu mnconsulta = new JMenu("Consultar");
+        mnconsulta.addActionListener(ActiveEvent -> {
+
+            if(consulta == null){
+
+                consulta = new lay_Consulta();
+                consulta.setVisible(true);
+
+            }else{
+
+                consulta.moveToFront();
+
+            }
+
+        });
+
         mnbar.add(mnnovo);
         mnbar.add(mnsalvar);
+        mnbar.add(mnconsulta);
 
         return mnbar;
 
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        form_pai.setCadEpi();
+    }
 }

@@ -15,8 +15,8 @@ public class lay_Inicial extends JFrame {
     private JDesktopPane desktop;
     private lay_CadColaborador cadColaborador;
     private lay_CadEmpresa cadEmpresa;
-    private lay_cadEpi cadEpi;
-    private lay_cadUniforme cadUniforme;
+    private lay_CadEpi cadEpi;
+    private lay_CadUniforme cadUniforme;
 
     // Método Construtor
     public lay_Inicial() {
@@ -76,7 +76,7 @@ public class lay_Inicial extends JFrame {
 
             if (cadColaborador == null){
 
-                cadColaborador = new lay_CadColaborador();
+                cadColaborador = new lay_CadColaborador(this);
                 this.desktop.add(cadColaborador);
                 cadColaborador.setVisible(true);
 
@@ -93,7 +93,7 @@ public class lay_Inicial extends JFrame {
 
             if(cadEmpresa == null){
 
-                cadEmpresa = new lay_CadEmpresa();
+                cadEmpresa = new lay_CadEmpresa(this);
                 this.desktop.add(cadEmpresa);
                 cadEmpresa.setVisible(true);
 
@@ -111,7 +111,7 @@ public class lay_Inicial extends JFrame {
 
             if(cadEpi == null){
 
-                cadEpi = new lay_cadEpi();
+                cadEpi = new lay_CadEpi(this);
                 this.desktop.add(cadEpi);
                 cadEpi.setVisible(true);
 
@@ -129,7 +129,7 @@ public class lay_Inicial extends JFrame {
 
             if(cadUniforme == null){
 
-                cadUniforme = new lay_cadUniforme();
+                cadUniforme = new lay_CadUniforme(this);
                 this.desktop.add(cadUniforme);
                 cadUniforme.setVisible(true);
 
@@ -243,4 +243,19 @@ public class lay_Inicial extends JFrame {
 
     }
 
+    void setCadColaborador() {
+        this.cadColaborador = null;
+    }
+
+    void setCadEmpresa() {
+        this.cadEmpresa = null;
+    }
+
+    void setCadEpi() {
+        this.cadEpi = null;
+    }
+
+    void setCadUniforme() {
+        this.cadUniforme = null;
+    }
 }

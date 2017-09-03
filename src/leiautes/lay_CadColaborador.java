@@ -1,20 +1,32 @@
 package leiautes;
 
-import Controle.Componentes.*;
-
 import javax.swing.*;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.*;
 
 class lay_CadColaborador extends JInternalFrame {
 
-    private Dimension tamanho_tela;
-    private Color     cor_fundo;
-    private String[]  nomes_col;
-    private Object    dados[][];
+    private Dimension       tamanho_tela;
+    private Color           cor_fundo;
+    private String[]        nomes_col;
+    private Object          dados[][];
+    private lay_Consulta    consulta;
+    private lay_Inicial     form_pai;
+    private MaskFormatter mascaraCep = null;
+    private MaskFormatter mascaraTel = null;
+    private MaskFormatter mascaraCpf = null;
+    private MaskFormatter mascaraData = null;
+    private MaskFormatter mascaraCel = null;
 
-    lay_CadColaborador() {
+    lay_CadColaborador(lay_Inicial formpai) {
 
+        form_pai = formpai;
         Inicaliza_Atributos();
         Constroe_Form();
     }
@@ -56,7 +68,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.NORTH,lbnome,10,
                                 SpringLayout.NORTH,painel_1);
 
-        RTexto tfnome = new RTexto(44);
+        JTextField tfnome = new JTextField(44);
         painel_1.add(tfnome);
         leiaute_1.putConstraint(SpringLayout.NORTH,tfnome,5,
                                 SpringLayout.SOUTH,lbnome);
@@ -64,7 +76,9 @@ class lay_CadColaborador extends JInternalFrame {
                                 SpringLayout.WEST,lbnome);
 
         // Criação do campo Data de Nascimento.
-        RDataHora tfdtanasc = new RDataHora(10);
+        JFormattedTextField tfdtanasc = new JFormattedTextField(mascaraData);
+        tfdtanasc.setPreferredSize(new Dimension(115,20));
+        tfdtanasc.setHorizontalAlignment(0);
         painel_1.add(tfdtanasc);
         leiaute_1.putConstraint(SpringLayout.WEST,tfdtanasc,10,
                                 SpringLayout.EAST,tfnome);
@@ -86,7 +100,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcpf,0,
                                 SpringLayout.WEST,tfnome);
 
-        RTextoFormat tfcpf = new RTextoFormat(12);
+        JFormattedTextField tfcpf = new JFormattedTextField(mascaraCpf);
+        tfcpf.setPreferredSize(new Dimension(140,20));
+        tfcpf.setHorizontalAlignment(0);
         painel_1.add(tfcpf);
         leiaute_1.putConstraint(SpringLayout.WEST,tfcpf,0,
                                 SpringLayout.WEST,lbcpf);
@@ -101,7 +117,8 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbrg,130,
                                 SpringLayout.EAST,lbcpf);
 
-        RTextoFormat tfrg = new RTextoFormat(12);
+        JTextField tfrg = new JTextField(12);
+        tfrg.setHorizontalAlignment(0);
         painel_1.add(tfrg);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfrg,0,
                                 SpringLayout.BASELINE,tfcpf);
@@ -116,7 +133,8 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbctps,135,
                                 SpringLayout.EAST,lbrg);
 
-        RTextoFormat tfctps = new RTextoFormat(12);
+        JTextField tfctps = new JTextField(12);
+        tfctps.setHorizontalAlignment(0);
         painel_1.add(tfctps);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfctps,0,
                                 SpringLayout.BASELINE,tfrg);
@@ -131,7 +149,8 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbpis,120,
                                 SpringLayout.EAST,lbctps);
 
-        RTextoFormat tfpis = new RTextoFormat(13);
+        JTextField tfpis = new JTextField(13);
+        tfpis.setHorizontalAlignment(0);
         painel_1.add(tfpis);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfpis,0,
                                 SpringLayout.BASELINE,tfctps);
@@ -146,7 +165,8 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcnh,0,
                                 SpringLayout.WEST,tfcpf);
 
-        RTextoFormat tfcnh = new RTextoFormat(12);
+        JTextField tfcnh = new JTextField(12);
+        tfcnh.setHorizontalAlignment(0);
         painel_1.add(tfcnh);
         leiaute_1.putConstraint(SpringLayout.WEST,tfcnh,0,
                                 SpringLayout.WEST,lbcnh);
@@ -211,7 +231,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lblogradouro,10,
                                 SpringLayout.WEST,painel_1);
 
-        RTexto tflogradouro = new RTexto(25);
+        JTextField tflogradouro = new JTextField(25);
         painel_1.add(tflogradouro);
         leiaute_1.putConstraint(SpringLayout.NORTH,tflogradouro,5,
                                 SpringLayout.SOUTH,lblogradouro);
@@ -226,7 +246,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbnro,210,
                                 SpringLayout.EAST,lblogradouro);
 
-        RNumerico tfnro = new RNumerico(7);
+        JTextField tfnro = new JTextField(7);
         painel_1.add(tfnro);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfnro,0,
                                 SpringLayout.BASELINE,tflogradouro);
@@ -241,7 +261,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcomplemento,40,
                                 SpringLayout.EAST,lbnro);
 
-        RTexto tfcomplemento = new RTexto(20);
+        JTextField tfcomplemento = new JTextField(20);
         painel_1.add(tfcomplemento);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfcomplemento,0,
                                 SpringLayout.BASELINE,tfnro);
@@ -256,7 +276,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcep,0,
                                 SpringLayout.WEST,tflogradouro);
 
-        RTextoFormat tfcep = new RTextoFormat(10);
+        JFormattedTextField tfcep = new JFormattedTextField(mascaraCep);
+        tfcep.setHorizontalAlignment(0);
+        tfcep.setPreferredSize(new Dimension(115,19));
         painel_1.add(tfcep);
         leiaute_1.putConstraint(SpringLayout.NORTH,tfcep,5,
                                 SpringLayout.SOUTH,lbcep);
@@ -271,7 +293,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbbairro,100,
                                 SpringLayout.EAST,lbcep);
 
-        RTexto tfbairro = new RTexto(18);
+        JTextField tfbairro = new JTextField(18);
         painel_1.add(tfbairro);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfbairro,0,
                                 SpringLayout.BASELINE,tfcep);
@@ -286,11 +308,12 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcidade,170,
                                 SpringLayout.EAST,lbbairro);
 
-        RTexto tfcidade = new RTexto(19);
-        painel_1.add(tfcidade);
-        leiaute_1.putConstraint(SpringLayout.BASELINE,tfcidade,0,
+        JComboBox cbcidade = new JComboBox();
+        cbcidade.setPreferredSize(new Dimension(185, 19));
+        painel_1.add(cbcidade);
+        leiaute_1.putConstraint(SpringLayout.BASELINE,cbcidade,0,
                                 SpringLayout.BASELINE,tfbairro);
-        leiaute_1.putConstraint(SpringLayout.WEST,tfcidade,0,
+        leiaute_1.putConstraint(SpringLayout.WEST,cbcidade,0,
                                 SpringLayout.WEST,lbcidade);
 
         // Criação do campo Estado.
@@ -298,14 +321,15 @@ class lay_CadColaborador extends JInternalFrame {
         painel_1.add(lbestado);
         leiaute_1.putConstraint(SpringLayout.BASELINE,lbestado,0,
                                 SpringLayout.BASELINE,lbcidade);
-        leiaute_1.putConstraint(SpringLayout.WEST,lbestado,175,
+        leiaute_1.putConstraint(SpringLayout.WEST,lbestado,150,
                                 SpringLayout.EAST,lbcidade);
 
-        RTexto tfestado = new RTexto(4);
-        painel_1.add(tfestado);
-        leiaute_1.putConstraint(SpringLayout.BASELINE,tfestado,0,
-                                SpringLayout.BASELINE,tfcidade);
-        leiaute_1.putConstraint(SpringLayout.WEST,tfestado,0,
+        JComboBox cbestado = new JComboBox();
+        cbestado.setPreferredSize(new Dimension(70, 19));
+        painel_1.add(cbestado);
+        leiaute_1.putConstraint(SpringLayout.BASELINE,cbestado,0,
+                                SpringLayout.BASELINE,cbcidade);
+        leiaute_1.putConstraint(SpringLayout.WEST,cbestado,0,
                                 SpringLayout.WEST,lbestado);
 
         // Criação do separador.
@@ -323,7 +347,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbtelefone_1,10,
                                 SpringLayout.WEST,painel_1);
 
-        RTextoFormat tftelefone_1 = new RTextoFormat(11);
+        JFormattedTextField tftelefone_1 = new JFormattedTextField(mascaraTel);
+        tftelefone_1.setHorizontalAlignment(0);
+        tftelefone_1.setPreferredSize(new Dimension(125,19));
         painel_1.add(tftelefone_1);
         leiaute_1.putConstraint(SpringLayout.NORTH,tftelefone_1,5,
                                 SpringLayout.SOUTH,lbtelefone_1);
@@ -338,7 +364,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbtelefone_2,40,
                                 SpringLayout.EAST,lbtelefone_1);
 
-        RTextoFormat tftelefone_2 = new RTextoFormat(11);
+        JFormattedTextField tftelefone_2 = new JFormattedTextField(mascaraTel);
+        tftelefone_2.setHorizontalAlignment(0);
+        tftelefone_2.setPreferredSize(new Dimension(125,19));
         painel_1.add(tftelefone_2);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tftelefone_2,0,
                                 SpringLayout.BASELINE,tftelefone_1);
@@ -353,7 +381,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcelular_1,40,
                                 SpringLayout.EAST,lbtelefone_2);
 
-        RTextoFormat tfcelular_1 = new RTextoFormat(11);
+        JFormattedTextField tfcelular_1 = new JFormattedTextField(mascaraCel);
+        tfcelular_1.setHorizontalAlignment(0);
+        tfcelular_1.setPreferredSize(new Dimension(125,19));
         painel_1.add(tfcelular_1);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfcelular_1,0,
                                 SpringLayout.BASELINE,tftelefone_2);
@@ -368,7 +398,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbcelular_2,40,
                                 SpringLayout.EAST,lbcelular_1);
 
-        RTextoFormat tfcelular_2 = new RTextoFormat(11);
+        JFormattedTextField tfcelular_2 = new JFormattedTextField(mascaraCel);
+        tfcelular_2.setHorizontalAlignment(0);
+        tfcelular_2.setPreferredSize(new Dimension(125,19));
         painel_1.add(tfcelular_2);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfcelular_2,0,
                                 SpringLayout.BASELINE,tfcelular_1);
@@ -383,7 +415,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbemail_1,0,
                                 SpringLayout.WEST,tftelefone_1);
 
-        RTextoFormat tfemail_1 = new RTextoFormat(26);
+        JTextField tfemail_1 = new JTextField(26);
         painel_1.add(tfemail_1);
         leiaute_1.putConstraint(SpringLayout.NORTH,tfemail_1,5,
                                 SpringLayout.SOUTH,lbemail_1);
@@ -398,13 +430,17 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_1.putConstraint(SpringLayout.WEST,lbemail_2,220,
                                 SpringLayout.EAST,lbemail_1);
 
-        RTextoFormat tfemail_2 = new RTextoFormat(26);
+        JTextField tfemail_2 = new JTextField(26);
         painel_1.add(tfemail_2);
         leiaute_1.putConstraint(SpringLayout.BASELINE,tfemail_2,0,
                                 SpringLayout.BASELINE,tfemail_1);
         leiaute_1.putConstraint(SpringLayout.WEST,tfemail_2,0,
                                 SpringLayout.WEST,lbemail_2);
 
+
+        TrataCampos_Painel1(tfnome, tfrg, tfctps, tfpis, tfcnh,
+                            chcnh_b, chcnh_c, chcnh_d, chcnh_e, tflogradouro,
+                            tfbairro);
 
         return painel_1;
     }
@@ -425,7 +461,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_2.putConstraint(SpringLayout.NORTH,lbnomemae,10,
                                 SpringLayout.NORTH,painel_2);
 
-        RTexto tfnomemae = new RTexto(55);
+        JTextField tfnomemae = new JTextField(55);
         painel_2.add(tfnomemae);
         leiaute_2.putConstraint(SpringLayout.WEST,tfnomemae,0,
                                 SpringLayout.WEST,lbnomemae);
@@ -440,7 +476,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_2.putConstraint(SpringLayout.NORTH,lbnomeconjuge,10,
                                 SpringLayout.SOUTH,tfnomemae);
 
-        RTexto tfnomeconjuge = new RTexto(43);
+        JTextField tfnomeconjuge = new JTextField(43);
         painel_2.add(tfnomeconjuge);
         leiaute_2.putConstraint(SpringLayout.WEST,tfnomeconjuge,0,
                                 SpringLayout.WEST,lbnomeconjuge);
@@ -455,7 +491,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_2.putConstraint(SpringLayout.WEST,lbdtanascconjuge,370,
                                 SpringLayout.EAST,lbnomeconjuge);
 
-        RDataHora tfdtanascconsjuge = new RDataHora(10);
+        JFormattedTextField tfdtanascconsjuge = new JFormattedTextField(mascaraData);
+        tfdtanascconsjuge.setHorizontalAlignment(0);
+        tfdtanascconsjuge.setPreferredSize(new Dimension(115, 19));
         painel_2.add(tfdtanascconsjuge);
         leiaute_2.putConstraint(SpringLayout.BASELINE,tfdtanascconsjuge,0,
                                 SpringLayout.BASELINE,tfnomeconjuge);
@@ -471,7 +509,7 @@ class lay_CadColaborador extends JInternalFrame {
                                 SpringLayout.SOUTH,tfnomeconjuge);
 
         // Criação da tabela utilizando o construtor para definir os nomes das colunas.
-        JTable tbfilhos = new JTable(dados,nomes_col);
+        JTable tbfilhos = new JTable(new DefaultTableModel(dados,nomes_col));
         tbfilhos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
         // Definindo o tamanho de uma das colunas.
@@ -505,6 +543,8 @@ class lay_CadColaborador extends JInternalFrame {
                                 SpringLayout.EAST,btaddfilho);
         leiaute_2.putConstraint(SpringLayout.NORTH,btExcluifilho,5,
                                 SpringLayout.SOUTH,btaddfilho);
+
+        TrataCampos_Painel2(tfnomemae, tfnomeconjuge, tbfilhos, btaddfilho, btExcluifilho);
 
         // Retornando o JPanel criado e populado.
         return painel_2;
@@ -559,7 +599,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST,lbdtaadmissao,0,
                                 SpringLayout.WEST,cbempresa);
 
-        RDataHora tfdtaadmissao = new RDataHora(9);
+        JFormattedTextField tfdtaadmissao = new JFormattedTextField(mascaraData);
+        tfdtaadmissao.setHorizontalAlignment(0);
+        tfdtaadmissao.setPreferredSize(new Dimension(110,19));
         painel_3.add(tfdtaadmissao);
         leiaute_3.putConstraint(SpringLayout.NORTH,tfdtaadmissao,5,
                                 SpringLayout.SOUTH,lbdtaadmissao);
@@ -574,7 +616,9 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST,lbdtademissao,20,
                                 SpringLayout.EAST,lbdtaadmissao);
 
-        RDataHora tfdtademissao = new RDataHora(9);
+        JFormattedTextField tfdtademissao = new JFormattedTextField(mascaraData);
+        tfdtademissao.setHorizontalAlignment(0);
+        tfdtademissao.setPreferredSize(new Dimension(110,19));
         painel_3.add(tfdtademissao);
         leiaute_3.putConstraint(SpringLayout.BASELINE,tfdtademissao,0,
                                 SpringLayout.BASELINE,tfdtaadmissao);
@@ -589,7 +633,14 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST,lbsalario,20,
                                 SpringLayout.EAST,lbdtademissao);
 
-        RTextoFormat tfsalario = new RTextoFormat(10);
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(2);
+        NumberFormat format2 = NumberFormat.getNumberInstance();
+        JFormattedTextField tfsalario = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(format),
+                                                                                            new NumberFormatter(format),
+                                                                                            new NumberFormatter(format2)));
+        tfsalario.setHorizontalAlignment(0);
+        tfsalario.setPreferredSize(new Dimension(150,19));
         painel_3.add(tfsalario);
         leiaute_3.putConstraint(SpringLayout.BASELINE,tfsalario,0,
                                 SpringLayout.BASELINE,tfdtademissao);
@@ -669,7 +720,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST, lbagencia, 180,
                                 SpringLayout.EAST, lbbanco);
 
-        RNumerico tfagencia = new RNumerico(10);
+        JTextField tfagencia = new JTextField(10);
         painel_3.add(tfagencia);
         leiaute_3.putConstraint(SpringLayout.BASELINE, tfagencia, 0,
                                 SpringLayout.BASELINE, cbbanco);
@@ -683,7 +734,7 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST, lboperacao, 70,
                                 SpringLayout.EAST, lbagencia);
 
-        RNumerico tfoperacao = new RNumerico(2);
+        JTextField tfoperacao = new JTextField(2);
         painel_3.add(tfoperacao);
         leiaute_3.putConstraint(SpringLayout.BASELINE, tfoperacao, 0,
                                 SpringLayout.BASELINE, tfagencia);
@@ -697,13 +748,14 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST, lbconta, 15,
                                 SpringLayout.EAST, lboperacao);
 
-        RTextoFormat tfconta = new RTextoFormat(10);
+        JTextField tfconta = new JTextField(19);
         painel_3.add(tfconta);
         leiaute_3.putConstraint(SpringLayout.BASELINE, tfconta, 0,
                                 SpringLayout.BASELINE, tfoperacao);
         leiaute_3.putConstraint(SpringLayout.WEST, tfconta, 0,
                                 SpringLayout.WEST, lbconta);
 
+        // Criação do campo de adiantamento.
         JLabel lbvalor = new JLabel("Valor");
         painel_3.add(lbvalor);
         leiaute_3.putConstraint(SpringLayout.NORTH, lbvalor, 10,
@@ -711,8 +763,12 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST, lbvalor, 0,
                                 SpringLayout.WEST, cbbanco);
 
-        // Criação do campo de adiantamento.
-        RTextoFormat tfvalor = new RTextoFormat(10);
+        JFormattedTextField tfvalor = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(format),
+                                                                                          new NumberFormatter(format),
+                                                                                          new NumberFormatter(format2)));
+        tfvalor.setHorizontalAlignment(0);
+        tfvalor.setPreferredSize(new Dimension(150,19));
+        tfvalor.setEnabled(false);
         painel_3.add(tfvalor);
         leiaute_3.putConstraint(SpringLayout.NORTH, tfvalor, 5,
                                 SpringLayout.SOUTH, lbvalor);
@@ -726,6 +782,8 @@ class lay_CadColaborador extends JInternalFrame {
         leiaute_3.putConstraint(SpringLayout.WEST, chadiantamento, 20,
                                 SpringLayout.EAST, tfvalor);
 
+        TrataCampos_Painel3(tfagencia, tfoperacao, tfconta, chadiantamento, tfvalor);
+
         // Retorna o panel populado.
         return painel_3;
     }
@@ -737,6 +795,24 @@ class lay_CadColaborador extends JInternalFrame {
         nomes_col    = new String[]{"Nome","Data Nasc."};
         dados        = new Object[][]{{null,null}};
 
+        //Define as máscaras
+        try{
+            mascaraCep = new MaskFormatter("#####-###");
+            mascaraTel = new MaskFormatter("(##)####-####");
+            mascaraCel = new MaskFormatter("(##)#####-####");
+            mascaraCpf = new MaskFormatter("###.###.###-##");
+            mascaraData = new MaskFormatter("##/##/####");
+            mascaraCep.setPlaceholderCharacter('_');
+            mascaraTel.setPlaceholderCharacter('_');
+            mascaraCel.setPlaceholderCharacter('_');
+            mascaraCpf.setPlaceholderCharacter('_');
+            mascaraData.setPlaceholderCharacter('_');
+        }
+        catch(ParseException excp) {
+            System.err.println("Erro na formatação: " + excp.getMessage());
+            System.exit(-1);
+        }
+
     }
 
     private JMenuBar Constroe_Menu(){
@@ -744,12 +820,176 @@ class lay_CadColaborador extends JInternalFrame {
         JMenuBar mnbar = new JMenuBar();
         JMenu mnnovo = new JMenu("Novo");
         JMenu mnsalvar = new JMenu("Salvar");
+        JMenu mnconsulta = new JMenu("Consultar");
+        mnconsulta.addActionListener(ActiveEvent -> {
+
+            if(consulta == null){
+
+                consulta = new lay_Consulta();
+                consulta.setVisible(true);
+
+            }else{
+
+                consulta.moveToFront();
+
+            }
+
+        });
         mnbar.add(mnnovo);
         mnbar.add(mnsalvar);
-
+        mnbar.add(mnconsulta);
 
         return mnbar;
 
+    }
+
+    private void TrataSoNumeros(JTextField campo, String tipo){
+
+        if(tipo.equals("rg")){
+
+            campo.addKeyListener(new KeyAdapter() {
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    if (!((c >= '0') && (c <= '9') ||
+                            (c == 'x') || (c == 'X') ||
+                            (c == KeyEvent.VK_BACK_SPACE) ||
+                            (c == KeyEvent.VK_DELETE))) {
+                        getToolkit().beep();
+                        e.consume();
+                    }
+                }
+            });
+
+        }else{
+
+            campo.addKeyListener(new KeyAdapter() {
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    if (!((c >= '0') && (c <= '9') ||
+                            (c == KeyEvent.VK_BACK_SPACE) ||
+                            (c == KeyEvent.VK_DELETE))) {
+                        getToolkit().beep();
+                        e.consume();
+                    }
+                }
+            });
+
+        }
+
+    }
+
+    private void TrataSoLetras(JTextField campo){
+
+        campo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if ((c >= '0') && (c <= '9')) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+
+    }
+
+    private void TrataCampos_Painel1(JTextField tfnome, JTextField tfrg,JTextField tfctps,JTextField tfpis,
+                                     JTextField tfcnh, JCheckBox chcnhb,JCheckBox chcnhc, JCheckBox chcnhd,
+                                     JCheckBox chcnhe, JTextField tflogradouro, JTextField tfbairro){
+
+        TrataSoNumeros(tfrg,"rg");
+
+        TrataSoNumeros(tfctps,"");
+
+        TrataSoNumeros(tfpis,"");
+
+        TrataSoNumeros(tfcnh,"");
+
+        TrataSoLetras(tfnome);
+
+        TrataSoLetras(tflogradouro);
+
+        TrataSoLetras(tfbairro);
+
+        chcnhb.addActionListener(actionEvent -> {
+            if(chcnhb.isSelected()){
+                chcnhc.setSelected(false);
+                chcnhd.setSelected(false);
+                chcnhe.setSelected(false);
+            }
+        });
+
+        chcnhc.addActionListener(actionEvent -> {
+            if(chcnhc.isSelected()){
+                chcnhb.setSelected(false);
+                chcnhd.setSelected(false);
+                chcnhe.setSelected(false);
+            }
+        });
+
+        chcnhd.addActionListener(actionEvent -> {
+            if(chcnhd.isSelected()){
+                chcnhb.setSelected(false);
+                chcnhc.setSelected(false);
+                chcnhe.setSelected(false);
+            }
+        });
+
+        chcnhe.addActionListener(actionEvent -> {
+            if(chcnhe.isSelected()){
+                chcnhb.setSelected(false);
+                chcnhc.setSelected(false);
+                chcnhd.setSelected(false);
+            }
+        });
+
+
+    }
+
+    private void TrataCampos_Painel2(JTextField tfnomemae,JTextField tfnomeconjuge, JTable tbfilhos,
+                                     JButton btaddfilho, JButton btExcluifilho){
+
+        TrataSoLetras(tfnomemae);
+
+        TrataSoLetras(tfnomeconjuge);
+
+        btaddfilho.addActionListener(actionEvent -> {
+            DefaultTableModel model = (DefaultTableModel) tbfilhos.getModel();
+            model.addRow(new Object[]{null,null});
+        });
+
+        btExcluifilho.addActionListener(actionEvent -> {
+            DefaultTableModel model = (DefaultTableModel) tbfilhos.getModel();
+            model.removeRow(tbfilhos.getSelectedRow());
+        });
+
+    }
+
+    private void TrataCampos_Painel3(JTextField tfagencia, JTextField tfoperacao, JTextField tfconta,
+                                     JCheckBox chadiantamento, JFormattedTextField tfvalor){
+
+        TrataSoNumeros(tfagencia, "");
+
+        TrataSoNumeros(tfoperacao, "");
+
+        TrataSoNumeros(tfconta, "");
+
+        chadiantamento.addActionListener(actionEvent -> {
+
+            if(chadiantamento.isSelected()){
+                tfvalor.setEnabled(true);
+            }else{
+                tfvalor.setValue(null);
+                tfvalor.setEnabled(false);
+            }
+
+        });
+
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        form_pai.setCadColaborador();
     }
 
 }

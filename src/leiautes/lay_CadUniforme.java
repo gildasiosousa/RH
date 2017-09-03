@@ -1,17 +1,23 @@
 package leiautes;
 
-import Controle.Componentes.RTextoFormat;
-
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.text.NumberFormat;
 
-class lay_cadUniforme extends JInternalFrame{
+class lay_CadUniforme extends JInternalFrame{
 
 
-    private Dimension tamanho_tela;
+    private Dimension       tamanho_tela;
+    private lay_Consulta    consulta;
+    private lay_Inicial     form_pai;
+    private NumberFormat    format;
+    private NumberFormat    format2;
 
-    lay_cadUniforme() {
+    lay_CadUniforme(lay_Inicial formpai) {
 
+        form_pai = formpai;
         Inicaliza_Atributos();
         Constroe_Form();
     }
@@ -75,7 +81,11 @@ class lay_cadUniforme extends JInternalFrame{
         leiauteunif.putConstraint(  SpringLayout.WEST, lbvalor, 0,
                                     SpringLayout.WEST, cbuniforme);
 
-        RTextoFormat tfvalor = new RTextoFormat(10);
+        JFormattedTextField tfvalor = new JFormattedTextField(new DefaultFormatterFactory(  new NumberFormatter(format),
+                                                                                            new NumberFormatter(format),
+                                                                                            new NumberFormatter(format2)));
+        tfvalor.setHorizontalAlignment(0);
+        tfvalor.setPreferredSize(new Dimension(150,19));
         painelunif.add(tfvalor);
         leiauteunif.putConstraint(  SpringLayout.NORTH, tfvalor, 5,
                                     SpringLayout.SOUTH, lbvalor);
@@ -87,6 +97,9 @@ class lay_cadUniforme extends JInternalFrame{
     private void Inicaliza_Atributos(){
 
         tamanho_tela = new Dimension(450,200);
+        format = NumberFormat.getCurrencyInstance();
+        format.setMinimumFractionDigits(2);
+        format2 = NumberFormat.getNumberInstance();
 
     }
 
@@ -95,12 +108,33 @@ class lay_cadUniforme extends JInternalFrame{
         JMenuBar mnbar = new JMenuBar();
         JMenu mnnovo = new JMenu("Novo");
         JMenu mnsalvar = new JMenu("Salvar");
+        JMenu mnconsulta = new JMenu("Consultar");
+        mnconsulta.addActionListener(ActiveEvent -> {
+
+            if(consulta == null){
+
+                consulta = new lay_Consulta();
+                consulta.setVisible(true);
+
+            }else{
+
+                consulta.moveToFront();
+
+            }
+
+        });
+
         mnbar.add(mnnovo);
         mnbar.add(mnsalvar);
-
+        mnbar.add(mnconsulta);
 
         return mnbar;
 
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        form_pai.setCadUniforme();
+    }
 }
